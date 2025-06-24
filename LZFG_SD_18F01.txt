@@ -1,0 +1,694 @@
+*----------------------------------------------------------------------*
+***INCLUDE LZFG_SD_18F01 .
+*----------------------------------------------------------------------*
+*&---------------------------------------------------------------------*
+*&      Form  CHECK_AUTHORIZATION
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*      -->P_I_APPL  text
+*      -->P_I_UNAME  text
+*      -->P_I_ZCLIENT_ID  text
+*      -->P_0009   text
+*      <--P_ERR_MSG  text
+*      <--P_ERR_TYPE  text
+*----------------------------------------------------------------------*
+FORM CHECK_AUTHORIZATION  USING    UV_APPL
+                                   UV_UNAME
+                                   UV_ZCLIENT_ID
+                                   UV_BAPI_NAME
+                          CHANGING CV_ERR_MSG
+                                   CV_ERR_TYPE.
+
+  DATA: I_APPL        TYPE  CHAR20,
+        I_UNAME       TYPE  TEXT20,
+        I_ZCLIENT_ID  TYPE  ZTMM002-ZCLIENT_ID,
+        I_PROG_NAME   TYPE  ZTMM002-ZPROG_NAME,
+        ERR_MSG       TYPE  TEXT100,
+        ERR_TYPE      TYPE  CHAR1.
+
+  I_APPL       = UV_APPL.
+  I_UNAME      = UV_UNAME.
+  I_ZCLIENT_ID = UV_ZCLIENT_ID.
+  I_PROG_NAME  = UV_BAPI_NAME.
+
+  CALL FUNCTION 'ZFM_WEB_INTERFACE'
+    EXPORTING
+      I_APPL       = UV_APPL
+      I_UNAME      = UV_UNAME
+      I_ZCLIENT_ID = UV_ZCLIENT_ID
+      I_PROG_NAME  = I_PROG_NAME
+    IMPORTING
+      ERR_MSG      = ERR_MSG
+      ERR_TYPE     = ERR_TYPE.
+  IF SY-SUBRC = 0.
+    CV_ERR_MSG  = ERR_MSG.
+    CV_ERR_TYPE = ERR_TYPE.
+  ENDIF.
+ENDFORM.                    " CHECK_AUTHORIZATION
+*&---------------------------------------------------------------------*
+*&      Form  VALIDATE_PO_CHANGE
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*      -->P_T_INPUT  text
+*      -->P_T_TEXT  text
+*      -->P_I_SO  text
+*      -->P_I_ITEM  text
+*      <--P_ERR_MSG  text
+*      <--P_ERR_TYPE  text
+*----------------------------------------------------------------------*
+FORM VALIDATE_SO_CHANGE  TABLES   UT_INPUT STRUCTURE ZTSD003
+                         USING    UV_SO TYPE VBAP-VBELN
+                                  UV_LOGIC_SWITCH TYPE BAPISDLS
+                         CHANGING CV_ERR_MSG
+                                  CV_ERR_TYPE.
+
+  DATA: LT_INPUT TYPE TABLE OF ZTSD003,
+        LW_INPUT TYPE ZTSD003.
+
+  DATA: LV_VBELN TYPE VBAK-VBELN,
+        LV_VBELN_VBFA TYPE VBAK-VBELN,
+        LT_VBFA TYPE TABLE OF VBFA,
+        LW_VBFA TYPE VBFA,
+        LV_POSNR TYPE VBAP-POSNR.
+
+
+  LV_VBELN = UV_SO.
+  CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+    EXPORTING
+      INPUT  = LV_VBELN
+    IMPORTING
+      OUTPUT = LV_VBELN.
+  IF UT_INPUT[] IS INITIAL.
+    CV_ERR_MSG  = 'No data to be updated!'.
+    CV_ERR_TYPE = 'E'.
+    EXIT.
+  ENDIF.
+  IF UV_SO IS INITIAL.
+    CV_ERR_MSG  = 'Sales number required!'.
+    CV_ERR_TYPE = 'E'.
+    EXIT.
+  ENDIF.
+  IF UT_INPUT[] IS NOT INITIAL.
+    LT_INPUT[] = UT_INPUT[].
+    SELECT * FROM ZTSD003 INTO TABLE GT_ZTSD003
+      FOR ALL ENTRIES IN LT_INPUT
+      WHERE ZCATAGORY      = LT_INPUT-ZCATAGORY      AND
+            TAB_TYPE_NAME1 = LT_INPUT-TAB_TYPE_NAME1 AND
+            ZFIELD         = LT_INPUT-ZFIELD         .
+    IF SY-SUBRC <> 0.
+      CV_ERR_MSG  = 'No input fields matched with the configuration table!'.
+      CV_ERR_TYPE = 'E'.
+      EXIT.
+    ENDIF.
+  ENDIF.
+
+  SELECT SINGLE * FROM VBAK INTO GW_VBAK
+    WHERE VBELN = LV_VBELN.
+  IF SY-SUBRC <> 0.
+    CV_ERR_MSG  = 'No SO found!'.
+    CV_ERR_TYPE = 'E'.
+    EXIT.
+  ENDIF.
+
+  SELECT *  FROM VBFA INTO TABLE LT_VBFA
+    WHERE VBELV = LV_VBELN.
+  IF SY-SUBRC = 0.
+    LOOP AT UT_INPUT INTO LW_INPUT.
+      IF LW_INPUT-ZCATAGORY EQ 'SO_ITEM'.
+        READ TABLE LT_VBFA TRANSPORTING NO FIELDS WITH KEY VBELV = LW_INPUT-VBELN
+                                                           POSNV = LW_INPUT-POSNR.
+        IF SY-SUBRC = 0.
+          CV_ERR_MSG  = 'Movement in SO.Item found!'.
+          CV_ERR_TYPE = 'E'.
+          EXIT.
+        ENDIF.
+      ELSEIF LW_INPUT-ZCATAGORY EQ 'SO_HEADER'.
+        READ TABLE LT_VBFA TRANSPORTING NO FIELDS WITH KEY VBELV = LW_INPUT-VBELN.
+        IF SY-SUBRC = 0.
+          CV_ERR_MSG  = 'Movement in SO.No. found!'.
+          CV_ERR_TYPE = 'E'.
+          EXIT.
+        ENDIF.
+      ENDIF.
+    ENDLOOP.
+  ENDIF.
+
+  CHECK CV_ERR_TYPE NE 'E'.
+
+  LOOP AT UT_INPUT ASSIGNING <GLS_INPUT>.
+    READ TABLE GT_ZTSD003 INTO GW_ZTSD003 WITH KEY ZCATAGORY      = <GLS_INPUT>-ZCATAGORY
+                                                   TAB_TYPE_NAME1 = <GLS_INPUT>-TAB_TYPE_NAME1
+                                                   ZFIELD         = <GLS_INPUT>-ZFIELD        .
+    IF SY-SUBRC <> 0.
+      CV_ERR_MSG  = 'No input fields matched with the configuration table!'.
+      CV_ERR_TYPE = 'E'.
+      EXIT.
+    ELSE.
+      <GLS_INPUT>-ZCATAGORY           = GW_ZTSD003-ZCATAGORY            .
+      <GLS_INPUT>-TAB_TYPE_NAME1      = GW_ZTSD003-TAB_TYPE_NAME1       .
+      <GLS_INPUT>-ZFIELD              = GW_ZTSD003-ZFIELD               .
+      <GLS_INPUT>-FIELD_NAME1_DESC    = GW_ZTSD003-FIELD_NAME1_DESC     .
+      <GLS_INPUT>-DATATYPE            = GW_ZTSD003-DATATYPE             .
+      <GLS_INPUT>-TAB_TYPE_NAME2      = GW_ZTSD003-TAB_TYPE_NAME2       .
+    ENDIF.
+
+    CASE <GLS_INPUT>-ZCATAGORY.
+      WHEN 'SO_ITEM'.
+        IF <GLS_INPUT>-POSNR IS INITIAL.
+          CV_ERR_MSG  = 'No SO item found when passing item data'.
+          CV_ERR_TYPE = 'E'.
+          EXIT.
+        ENDIF.
+      WHEN 'SO_HEADER'.
+        IF <GLS_INPUT>-POSNR IS NOT INITIAL.
+          CV_ERR_MSG  = 'SO item found when passing header data'.
+          CV_ERR_TYPE = 'E'.
+          EXIT.
+        ENDIF.
+      WHEN OTHERS.
+        CV_ERR_MSG  = 'Wrong CATAGORY'.
+        CV_ERR_TYPE = 'E'.
+        EXIT.
+    ENDCASE.
+
+    PERFORM PREP_VALUE  CHANGING CV_ERR_MSG
+                                 CV_ERR_TYPE.
+    CHECK CV_ERR_TYPE NE 'E'.
+
+    CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+      EXPORTING
+        INPUT  = <GLS_INPUT>-VBELN
+      IMPORTING
+        OUTPUT = <GLS_INPUT>-VBELN.
+
+    IF <GLS_INPUT>-POSNR IS NOT INITIAL.
+      SELECT SINGLE VBELN POSNR FROM VBAP INTO (LV_VBELN,LV_POSNR)
+      WHERE ( VBELN = <GLS_INPUT>-VBELN AND VBELN = LV_VBELN )
+      AND   POSNR = <GLS_INPUT>-POSNR.
+      IF SY-SUBRC <> 0.
+        CV_ERR_MSG   = 'No item matched with SO number'.
+        CV_ERR_TYPE  = 'E'.
+        EXIT.
+      ENDIF.
+    ENDIF.
+
+  ENDLOOP.
+
+  IF UV_LOGIC_SWITCH IS NOT INITIAL.
+    READ TABLE UT_INPUT TRANSPORTING NO FIELDS WITH KEY TAB_TYPE_NAME1 = 'GW_CONDITIONS_IN'.
+    IF SY-SUBRC <> 0.
+      CV_ERR_MSG   = 'Pass Logic switch in case of price change!'.
+      CV_ERR_TYPE  = 'E'.
+      EXIT.
+    ENDIF.
+  ENDIF.
+
+ENDFORM.                    " VALIDATE_PO_CHANGE
+*&---------------------------------------------------------------------*
+*&      Form  CHANGE_SO
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*      -->P_T_INPUT  text
+*      -->P_T_TEXT  text
+*      -->P_I_SO_NO  text
+*      -->P_I_SO_ITEM  text
+*      -->P_I_TESTRUN  text
+*      <--P_ERR_MSG  text
+*      <--P_ERR_TYPE  text
+*----------------------------------------------------------------------*
+FORM CHANGE_SO  TABLES   UT_INPUT STRUCTURE ZTSD003
+                USING    UV_SO
+                         UV_TEST
+                         UV_LOGIC_SWITCH TYPE BAPISDLS
+                CHANGING CV_ERR_MSG
+                         CV_ERR_TYPE.
+
+  DATA: LV_FLAG TYPE CHAR1,
+        LV_FIELD_NAME TYPE CHAR30,
+        LV_FLAG_NEW TYPE CHAR1.
+  DATA: LW_REMARK TYPE CVIS_EI_REM,
+        LW_VBPA TYPE VBPA,
+        LV_LINES TYPE I,
+        LV_KEY_STRING1 TYPE CHAR20,
+        LV_KEY_STRING2 TYPE CHAR20,
+        LV_KEY_FIELD TYPE CHAR20,
+        LV_KEY_COUNTER TYPE N LENGTH 1,
+        LV_ITEM TYPE ZTSD003-POSNR.
+
+  FIELD-SYMBOLS: <LFS_PARTNERCHANGES> TYPE BAPIPARNRC.
+
+  SORT UT_INPUT.
+  LOOP AT UT_INPUT INTO GW_INPUT.
+    CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+      EXPORTING
+        INPUT  = GW_INPUT-VBELN
+      IMPORTING
+        OUTPUT = GW_INPUT-VBELN.
+    "--------------------------------------"
+    " Flag for append
+    "--------------------------------------"
+    CLEAR: LV_FLAG.
+    AT END OF TAB_TYPE_NAME1.
+      LV_FLAG = 'X'.
+    ENDAT.
+    AT END OF VBELN.
+      LV_FLAG_NEW = 'X'.
+    ENDAT.
+    "--------------------------------------"
+    " Assign value to fields
+    "--------------------------------------"
+    IF GW_INPUT-TAB_TYPE_NAME1 EQ 'GW_ORDER_TEXT'.
+      GW_ORDER_TEXT-DOC_NUMBER = GW_INPUT-VBELN.
+      GW_ORDER_TEXT-ITM_NUMBER = GW_INPUT-POSNR.
+      GW_ORDER_TEXT-LANGU      = 'EN'.
+      GW_ORDER_TEXT-TEXT_ID    = GW_INPUT-TEXT_ID.
+      GW_ORDER_TEXT-TEXT_LINE  = GW_INPUT-VAL_NEW.
+      APPEND GW_ORDER_TEXT TO GT_ORDER_TEXT[].
+      CLEAR: GW_ORDER_TEXT.
+    ELSE.
+      IF GW_INPUT-TAB_TYPE_NAME1 EQ 'GW_PARTNERCHANGES'.
+        GW_PARTNERCHANGES-DOCUMENT = GW_INPUT-VBELN.
+      ENDIF.
+      GV_STRUCTURE_NAME = GW_INPUT-TAB_TYPE_NAME1.
+      LV_FIELD_NAME = GW_INPUT-ZFIELD.
+      ASSIGN (GV_STRUCTURE_NAME) TO <FS_STRUC1>.
+      IF <FS_STRUC1> IS ASSIGNED.
+        ASSIGN COMPONENT LV_FIELD_NAME OF STRUCTURE <FS_STRUC1> TO <FS_VAL1>.
+        IF SY-SUBRC = 0.
+          <FS_VAL1> = GW_INPUT-VAL_NEW.
+          UNASSIGN: <FS_VAL1>.
+        ENDIF.
+        UNASSIGN: <FS_STRUC1>.
+      ENDIF.
+    ENDIF.
+
+    CASE GW_INPUT-TAB_TYPE_NAME1.
+      WHEN 'GW_ORDER_HEADER_IN'.
+        GW_ORDER_HEADER_INX-UPDATEFLAG = GW_INPUT-UPD_IND.
+        ASSIGN COMPONENT LV_FIELD_NAME OF STRUCTURE GW_ORDER_HEADER_INX TO <FS_VAL2>.
+        IF SY-SUBRC = 0.
+          <FS_VAL2> = 'X'.
+          UNASSIGN: <FS_VAL2>.
+        ENDIF.
+      WHEN 'GW_ORDER_ITEM_IN'.
+        GW_ORDER_ITEM_INX-UPDATEFLAG = GW_INPUT-UPD_IND.
+        GW_ORDER_ITEM_INX-ITM_NUMBER = GW_ORDER_ITEM_IN-ITM_NUMBER = GW_INPUT-POSNR.
+        ASSIGN COMPONENT LV_FIELD_NAME OF STRUCTURE GW_ORDER_ITEM_INX TO <FS_VAL2>.
+        IF SY-SUBRC = 0.
+          <FS_VAL2> = 'X'.
+          UNASSIGN: <FS_VAL2>.
+        ENDIF.
+      WHEN 'GW_SCHEDULE_LINES'.
+        GW_ORDER_ITEM_INX-UPDATEFLAG = GW_INPUT-UPD_IND.
+        GW_ORDER_ITEM_INX-ITM_NUMBER = GW_ORDER_ITEM_IN-ITM_NUMBER = GW_INPUT-POSNR.
+
+        GW_SCHEDULE_LINESX-UPDATEFLAG = GW_INPUT-UPD_IND.
+        GW_SCHEDULE_LINESX-ITM_NUMBER = GW_SCHEDULE_LINES-ITM_NUMBER = GW_INPUT-POSNR.
+        GW_SCHEDULE_LINESX-SCHED_LINE = GW_SCHEDULE_LINES-SCHED_LINE = GW_INPUT-SCHED_LINE.
+        ASSIGN COMPONENT LV_FIELD_NAME OF STRUCTURE GW_SCHEDULE_LINESX TO <FS_VAL2>.
+        IF SY-SUBRC = 0.
+          <FS_VAL2> = 'X'.
+          UNASSIGN: <FS_VAL2>.
+        ENDIF.
+      WHEN 'GW_CONDITIONS_IN'.
+        GW_ORDER_ITEM_INX-UPDATEFLAG = GW_INPUT-UPD_IND.
+        GW_ORDER_ITEM_INX-ITM_NUMBER = GW_ORDER_ITEM_IN-ITM_NUMBER = GW_INPUT-POSNR.
+
+        GW_CONDITIONS_INX-UPDATEFLAG = GW_INPUT-UPD_IND.
+        GW_CONDITIONS_INX-ITM_NUMBER = GW_CONDITIONS_IN-ITM_NUMBER = GW_INPUT-POSNR.
+        ASSIGN COMPONENT LV_FIELD_NAME OF STRUCTURE GW_CONDITIONS_INX TO <FS_VAL2>.
+        IF SY-SUBRC = 0.
+          <FS_VAL2> = 'X'.
+          UNASSIGN: <FS_VAL2>.
+        ENDIF.
+
+**-------------------->>  start add by kanyapak 02.06.2025  <<--------------------**
+      WHEN 'GW_ORDER_TEXT' OR 'GW_PARTNERCHANGES'.
+        GW_ORDER_ITEM_INX-UPDATEFLAG = GW_INPUT-UPD_IND.
+        GW_ORDER_ITEM_INX-ITM_NUMBER = GW_ORDER_ITEM_IN-ITM_NUMBER = GW_INPUT-POSNR.
+**-------------------->>  start add by kanyapak 02.06.2025  <<--------------------**
+    ENDCASE.
+
+    IF LV_FLAG EQ 'X'.
+      CASE GW_INPUT-TAB_TYPE_NAME1.
+        WHEN 'GW_ORDER_ITEM_IN'.
+          READ TABLE GT_ORDER_ITEM_INX TRANSPORTING NO FIELDS WITH KEY ITM_NUMBER = GW_INPUT-POSNR
+                                                                      UPDATEFLAG = GW_INPUT-UPD_IND.
+          IF SY-SUBRC <> 0.
+            APPEND GW_ORDER_ITEM_IN TO GT_ORDER_ITEM_IN[].
+            CLEAR: GW_ORDER_ITEM_IN.
+
+            APPEND GW_ORDER_ITEM_INX TO GT_ORDER_ITEM_INX[].
+            CLEAR: GW_ORDER_ITEM_INX.
+          ENDIF.
+*          APPEND GW_ORDER_ITEM_INX TO GT_ORDER_ITEM_INX[].
+*          CLEAR: GW_ORDER_ITEM_INX.
+*
+*          APPEND GW_ORDER_ITEM_IN TO GT_ORDER_ITEM_IN[].
+*          CLEAR: GW_ORDER_ITEM_IN.
+        WHEN 'GW_SCHEDULE_LINES'.
+          APPEND GW_SCHEDULE_LINES TO GT_SCHEDULE_LINES[].
+          CLEAR: GW_SCHEDULE_LINES.
+
+          APPEND GW_SCHEDULE_LINESX TO GT_SCHEDULE_LINESX[].
+          CLEAR: GW_SCHEDULE_LINESX.
+
+          READ TABLE GT_ORDER_ITEM_INX TRANSPORTING NO FIELDS WITH KEY ITM_NUMBER = GW_INPUT-POSNR
+                                                                      UPDATEFLAG = GW_INPUT-UPD_IND.
+          IF SY-SUBRC <> 0.
+            APPEND GW_ORDER_ITEM_IN TO GT_ORDER_ITEM_IN[].
+            CLEAR: GW_ORDER_ITEM_IN.
+
+            APPEND GW_ORDER_ITEM_INX TO GT_ORDER_ITEM_INX[].
+            CLEAR: GW_ORDER_ITEM_INX.
+          ENDIF.
+
+        WHEN 'GW_ORDER_TEXT'.
+
+**-------------------->>  start add by kanyapak 26.05.2025  <<--------------------**
+          IF GW_INPUT-ZCATAGORY = 'SO_ITEM'.
+
+            READ TABLE GT_ORDER_ITEM_INX TRANSPORTING NO FIELDS WITH KEY ITM_NUMBER = GW_INPUT-POSNR
+                                                                       UPDATEFLAG = GW_INPUT-UPD_IND.
+            IF SY-SUBRC <> 0.
+              APPEND GW_ORDER_ITEM_IN TO GT_ORDER_ITEM_IN[].
+              CLEAR: GW_ORDER_ITEM_IN.
+
+              APPEND GW_ORDER_ITEM_INX TO GT_ORDER_ITEM_INX[].
+              CLEAR: GW_ORDER_ITEM_INX.
+            ENDIF.
+
+          ENDIF.
+**-------------------->>  end add by kanyapak 26.05.2025  <<--------------------**
+
+*          GW_ORDER_ITEM_INX-UPDATEFLAG = GW_INPUT-UPD_IND.
+*          GW_ORDER_ITEM_INX-ITM_NUMBER = GW_ORDER_ITEM_IN-ITM_NUMBER = GW_INPUT-POSNR.
+*          APPEND GW_ORDER_ITEM_INX TO GT_ORDER_ITEM_INX[].
+*          CLEAR: GW_ORDER_ITEM_INX.
+
+*          APPEND GW_ORDER_ITEM_IN TO GT_ORDER_ITEM_IN[].
+*          CLEAR: GW_ORDER_ITEM_IN.
+        WHEN 'GW_CONDITIONS_IN'.
+          APPEND GW_CONDITIONS_IN TO GT_CONDITIONS_IN[].
+          CLEAR: GW_CONDITIONS_IN.
+
+          APPEND GW_CONDITIONS_INX TO GT_CONDITIONS_INX[].
+          CLEAR: GW_CONDITIONS_INX.
+
+          READ TABLE GT_ORDER_ITEM_INX TRANSPORTING NO FIELDS WITH KEY ITM_NUMBER = GW_INPUT-POSNR
+                                                                      UPDATEFLAG = GW_INPUT-UPD_IND.
+          IF SY-SUBRC <> 0.
+            APPEND GW_ORDER_ITEM_IN TO GT_ORDER_ITEM_IN[].
+            CLEAR: GW_ORDER_ITEM_IN.
+
+            APPEND GW_ORDER_ITEM_INX TO GT_ORDER_ITEM_INX[].
+            CLEAR: GW_ORDER_ITEM_INX.
+          ENDIF.
+
+**-------------------->>  start add by kanyapak 02.06.2025  <<--------------------**
+        WHEN 'GW_PARTNERCHANGES'.
+
+          IF GW_INPUT-ZCATAGORY = 'SO_ITEM'.
+
+            READ TABLE GT_ORDER_ITEM_INX TRANSPORTING NO FIELDS WITH KEY ITM_NUMBER = GW_INPUT-POSNR
+                                                                      UPDATEFLAG = GW_INPUT-UPD_IND.
+             IF SY-SUBRC <> 0.
+               APPEND GW_ORDER_ITEM_IN TO GT_ORDER_ITEM_IN[].
+               CLEAR: GW_ORDER_ITEM_IN.
+
+               APPEND GW_ORDER_ITEM_INX TO GT_ORDER_ITEM_INX[].
+               CLEAR: GW_ORDER_ITEM_INX.
+             ENDIF.
+
+             GW_PARTNERCHANGES-ITM_NUMBER = GW_INPUT-POSNR.
+
+          ENDIF.
+
+          APPEND GW_PARTNERCHANGES TO GT_PARTNERCHANGES[].
+          CLEAR:GW_PARTNERCHANGES.
+**-------------------->>  end add by kanyapak 02.06.2025  <<----------------------**
+      ENDCASE.
+    ENDIF.
+    IF LV_FLAG_NEW EQ 'X'.
+      LOOP AT GT_PARTNERCHANGES ASSIGNING <LFS_PARTNERCHANGES>.
+        IF <LFS_PARTNERCHANGES>-P_NUMB_NEW IS INITIAL.
+          CV_ERR_MSG  = 'No updated partner function!'.
+          CV_ERR_TYPE = 'E'.
+          EXIT.
+        ENDIF.
+        IF CV_ERR_TYPE = 'E'.
+          EXIT.
+        ENDIF.
+
+        IF <LFS_PARTNERCHANGES>-ITM_NUMBER EQ 0.
+
+          LV_ITEM = ''.
+
+        ENDIF.
+
+        SELECT SINGLE *  FROM VBPA INTO LW_VBPA WHERE VBELN = <LFS_PARTNERCHANGES>-DOCUMENT
+                                                AND   PARVW = <LFS_PARTNERCHANGES>-PARTN_ROLE
+                                                AND POSNR = LV_ITEM.
+        IF SY-SUBRC = 0.
+          <LFS_PARTNERCHANGES>-P_NUMB_OLD = LW_VBPA-KUNNR.
+          <LFS_PARTNERCHANGES>-UPDATEFLAG = 'U'.
+        ELSE.
+          CV_ERR_MSG  = 'No partner function found in SO!'.
+          CV_ERR_TYPE = 'E'.
+          EXIT.
+        ENDIF.
+        IF CV_ERR_TYPE = 'E'.
+          EXIT.
+        ENDIF.
+      ENDLOOP.
+
+      PERFORM CALL_BAPI USING    UV_SO
+                                 UV_LOGIC_SWITCH
+                        CHANGING CV_ERR_MSG
+                                 CV_ERR_TYPE.
+      CLEAR: UV_SO,
+             GW_ORDER_HEADER_IN,
+             GW_ORDER_HEADER_INX.
+      REFRESH: GT_RETURN,
+               GT_ORDER_ITEM_IN,
+               GT_ORDER_ITEM_INX,
+               GT_PARTNERS,
+               GT_PARTNERCHANGES,
+               GT_PARTNERADDRESSES,
+               GT_ORDER_CFGS_REF,
+               GT_ORDER_CFGS_INST,
+               GT_ORDER_CFGS_PART_OF,
+               GT_ORDER_CFGS_VALUE,
+               GT_ORDER_CFGS_BLOB,
+               GT_ORDER_CFGS_VK,
+               GT_ORDER_CFGS_REFINST,
+               GT_SCHEDULE_LINES,
+               GT_SCHEDULE_LINESX,
+               GT_ORDER_TEXT,
+               GT_ORDER_KEYS,
+               GT_CONDITIONS_IN,
+               GT_CONDITIONS_INX,
+               GT_EXTENSIONIN.
+    ENDIF.
+    CLEAR: LV_FLAG_NEW,LV_FLAG.
+  ENDLOOP.
+
+ENDFORM.                    " CHANGE_SO
+*&---------------------------------------------------------------------*
+*&      Form  PREP_VALUE
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*      <--P_CV_ERR_MSG  text
+*      <--P_CV_ERR_TYPE  text
+*----------------------------------------------------------------------*
+FORM PREP_VALUE  CHANGING CV_ERR_MSG
+                          CV_ERR_TYPE.
+
+  DATA: LV_STRC TYPE I.
+  CASE GW_ZTSD003-DATATYPE.
+    WHEN 'DATS'.
+      IF GW_INPUT-VAL_NEW CA SY-ABCDE.
+        CV_ERR_TYPE  = 'E'.
+        CV_ERR_MSG   = 'Wrong data type for input'.
+        EXIT.
+      ELSE.
+        LV_STRC = STRLEN( <GLS_INPUT>-VAL_NEW ).
+        IF LV_STRC GT 8.
+          CV_ERR_TYPE  = 'E'.
+          CV_ERR_MSG   = 'Date input must be 8 digits'.
+          EXIT.
+**-------------------->>  start add by kanyapak 02.06.2025  <<--------------------**
+        ELSEIF <GLS_INPUT>-VAL_NEW LT SY-DATUM+1.
+          CV_ERR_TYPE  = 'E'.
+          CV_ERR_MSG   = 'Input Date is less than Current Date'.
+        ENDIF.
+**-------------------->>  end add by kanyapak 02.06.2025  <<--------------------**
+      ENDIF.
+    WHEN 'TIMS' OR 'ACCP'.
+      IF <GLS_INPUT>-VAL_NEW CA SY-ABCDE.
+        CV_ERR_TYPE  = 'E'.
+        CV_ERR_MSG   = 'Wrong data type for input'.
+        EXIT.
+      ELSE.
+        LV_STRC = STRLEN( <GLS_INPUT>-VAL_NEW ).
+        IF LV_STRC GT 6.
+          CV_ERR_TYPE  = 'E'.
+          CV_ERR_MSG   ='Time input must be 6 digits'.
+          EXIT.
+        ENDIF.
+      ENDIF.
+    WHEN 'DEC' OR 'QUAN' OR 'CURR' OR 'INT1' OR 'INT2' OR 'INT4' OR 'PREC' OR 'RAW' OR 'FLTP'.
+      IF <GLS_INPUT>-VAL_NEW CA SY-ABCDE OR <GLS_INPUT>-VAL_NEW CA ','.
+        CV_ERR_TYPE  = 'E'.
+        CV_ERR_MSG   = 'Wrong data type for input'.
+        EXIT.
+      ENDIF.
+  ENDCASE.
+ENDFORM.                    " PREP_VALUE
+*&---------------------------------------------------------------------*
+*&      Form  CALL_BAPI
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*      -->P_UV_SO  text
+*      -->P_UV_ITEM  text
+*      <--P_CV_ERR_MSG  text
+*      <--P_CV_ERR_TYPE  text
+*----------------------------------------------------------------------*
+FORM CALL_BAPI  USING    UV_SO
+                         UV_LOGIC_SWITCH TYPE BAPISDLS
+                CHANGING CV_ERR_MSG
+                         CV_ERR_TYPE.
+
+  DATA: LV_VBELN TYPE VBAK-VBELN.
+
+  SORT: GT_ORDER_ITEM_IN,GT_ORDER_ITEM_INX.
+  DELETE ADJACENT DUPLICATES FROM: GT_ORDER_ITEM_IN COMPARING ALL FIELDS,
+                                   GT_ORDER_ITEM_INX COMPARING ALL FIELDS.
+
+  LV_VBELN = UV_SO.
+  CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+    EXPORTING
+      INPUT  = LV_VBELN
+    IMPORTING
+      OUTPUT = LV_VBELN.
+
+  GW_ORDER_HEADER_INX-UPDATEFLAG = 'U'.
+
+  CALL FUNCTION 'BAPI_SALESORDER_CHANGE'
+    EXPORTING
+      SALESDOCUMENT      = LV_VBELN
+      ORDER_HEADER_IN    = GW_ORDER_HEADER_IN
+      ORDER_HEADER_INX   = GW_ORDER_HEADER_INX
+      LOGIC_SWITCH       = UV_LOGIC_SWITCH
+    TABLES
+      RETURN             = GT_RETURN
+      ORDER_ITEM_IN      = GT_ORDER_ITEM_IN
+      ORDER_ITEM_INX     = GT_ORDER_ITEM_INX
+      PARTNERS           = GT_PARTNERS
+      PARTNERCHANGES     = GT_PARTNERCHANGES
+      PARTNERADDRESSES   = GT_PARTNERADDRESSES
+      ORDER_CFGS_REF     = GT_ORDER_CFGS_REF
+      ORDER_CFGS_INST    = GT_ORDER_CFGS_INST
+      ORDER_CFGS_PART_OF = GT_ORDER_CFGS_PART_OF
+      ORDER_CFGS_VALUE   = GT_ORDER_CFGS_VALUE
+      ORDER_CFGS_BLOB    = GT_ORDER_CFGS_BLOB
+      ORDER_CFGS_VK      = GT_ORDER_CFGS_VK
+      ORDER_CFGS_REFINST = GT_ORDER_CFGS_REFINST
+      SCHEDULE_LINES     = GT_SCHEDULE_LINES
+      SCHEDULE_LINESX    = GT_SCHEDULE_LINESX
+      ORDER_TEXT         = GT_ORDER_TEXT
+      ORDER_KEYS         = GT_ORDER_KEYS
+      CONDITIONS_IN      = GT_CONDITIONS_IN
+      CONDITIONS_INX     = GT_CONDITIONS_INX
+      EXTENSIONIN        = GT_EXTENSIONIN.
+  IF SY-SUBRC = 0.
+    READ TABLE GT_RETURN INTO GW_RETURN WITH KEY TYPE = 'E'.
+    IF SY-SUBRC = 0.
+      CV_ERR_MSG  = GW_RETURN-MESSAGE.
+      CV_ERR_TYPE = GW_RETURN-TYPE.
+    ELSE.
+      CALL FUNCTION 'BAPI_TRANSACTION_COMMIT'
+        EXPORTING
+          WAIT = 'X'.
+      CV_ERR_TYPE = 'S'.
+      CV_ERR_MSG = ''.
+    ENDIF.
+  ELSE.
+    CV_ERR_TYPE = 'E'.
+    CV_ERR_MSG = 'No Sales order updated!'.
+  ENDIF.
+
+ENDFORM.                    " CALL_BAPI
+*&---------------------------------------------------------------------*
+*&      Form  CLEAR_VARIABLE
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*  -->  p1        text
+*  <--  p2        text
+*----------------------------------------------------------------------*
+FORM CLEAR_VARIABLE .
+  CLEAR: GW_VBAK ,
+         GV_FIELD ,
+         GV_STRUCTURE ,
+         GV_STRUCTURE_NAME ,
+         GV_TAB_NAME,
+         GW_ZTSD003,
+         GW_INPUT,
+         GW_TEXT.
+
+  REFRESH: GT_ZTSD003[],
+           GT_INPUT[].
+  .
+  CLEAR:  GV_SALESDOCUMENT ,
+          GW_ORDER_HEADER_IN  ,
+          GW_ORDER_HEADER_INX,
+
+          GW_RETURN ,
+          GW_ORDER_ITEM_IN  ,
+          GW_ORDER_ITEM_INX ,
+          GW_PARTNERS ,
+          GW_PARTNERCHANGES ,
+          GW_PARTNERADDRESSES ,
+          GW_ORDER_CFGS_REF ,
+          GW_ORDER_CFGS_INST  ,
+          GW_ORDER_CFGS_PART_OF ,
+          GW_ORDER_CFGS_VALUE ,
+          GW_ORDER_CFGS_BLOB  ,
+          GW_ORDER_CFGS_VK  ,
+          GW_ORDER_CFGS_REFINST ,
+          GW_SCHEDULE_LINES ,
+          GW_SCHEDULE_LINESX  ,
+          GW_ORDER_TEXT ,
+          GW_ORDER_KEYS ,
+          GW_CONDITIONS_IN  ,
+          GW_CONDITIONS_INX ,
+          GW_EXTENSIONIN.
+
+  REFRESH:
+        GT_RETURN             ,
+        GT_ORDER_ITEM_IN      ,
+        GT_ORDER_ITEM_INX     ,
+        GT_PARTNERS           ,
+        GT_PARTNERCHANGES     ,
+        GT_PARTNERADDRESSES   ,
+        GT_ORDER_CFGS_REF     ,
+        GT_ORDER_CFGS_INST    ,
+        GT_ORDER_CFGS_PART_OF ,
+        GT_ORDER_CFGS_VALUE   ,
+        GT_ORDER_CFGS_BLOB    ,
+        GT_ORDER_CFGS_VK      ,
+        GT_ORDER_CFGS_REFINST ,
+        GT_SCHEDULE_LINES     ,
+        GT_SCHEDULE_LINESX    ,
+        GT_ORDER_TEXT         ,
+        GT_ORDER_KEYS         ,
+        GT_CONDITIONS_IN      ,
+        GT_CONDITIONS_INX     ,
+        GT_EXTENSIONIN        .
+ENDFORM.                    " CLEAR_VARIABLE

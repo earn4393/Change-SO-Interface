@@ -1,0 +1,38 @@
+FUNCTION ZFM_SD_0018_SO_INTERFACE.
+*"----------------------------------------------------------------------
+*"*"Local Interface:
+*"  IMPORTING
+*"     VALUE(I_APPL) TYPE  CHAR20 OPTIONAL
+*"     VALUE(I_UNAME) TYPE  TEXT20 OPTIONAL
+*"     VALUE(I_SO_NO) TYPE  VBELN_VA OPTIONAL
+*"     VALUE(I_LOGIC_SWITCH) LIKE  BAPISDLS STRUCTURE  BAPISDLS
+*"       OPTIONAL
+*"     VALUE(I_TESTRUN) TYPE  CHAR1 OPTIONAL
+*"     VALUE(I_ZCLIENT_ID) TYPE  ZTMM002-ZCLIENT_ID OPTIONAL
+*"  EXPORTING
+*"     VALUE(ERR_MSG) TYPE  TEXT100
+*"     VALUE(ERR_TYPE) TYPE  CHAR1
+*"  TABLES
+*"      T_INPUT STRUCTURE  ZTSD003 OPTIONAL
+*"----------------------------------------------------------------------
+
+  PERFORM: CLEAR_VARIABLE.
+  PERFORM CHECK_AUTHORIZATION USING I_APPL I_UNAME I_ZCLIENT_ID 'ZFM_SD_0018_SO_INTERFACE'
+                              CHANGING ERR_MSG ERR_TYPE.
+
+  CHECK ERR_TYPE IS INITIAL.
+  PERFORM VALIDATE_SO_CHANGE TABLES T_INPUT
+                             USING I_SO_NO
+                                   I_LOGIC_SWITCH
+                             CHANGING ERR_MSG
+                                      ERR_TYPE.
+
+  CHECK ERR_TYPE IS INITIAL.
+  PERFORM CHANGE_SO TABLES  T_INPUT
+                     USING I_SO_NO
+                           I_TESTRUN
+                           I_LOGIC_SWITCH
+                     CHANGING ERR_MSG
+                              ERR_TYPE.
+
+ENDFUNCTION.
