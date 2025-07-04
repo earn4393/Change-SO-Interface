@@ -5,7 +5,7 @@ change request
 * T : แก้ไข SAP interface ที่ใช้แก้ไข SO ตามที่ผู้ใช้ระบุ ex. delivery date , price , material 
 * A
   - review การทำงานของ code
-  - ออกแบบและหา case ที่ใช้ในการเพิ่ม field ใน SO
+  - ออกแบบและหา case ที่ใช้ในการเพิ่ม field ใน SO ตามที่ user ร้องขอ
   - แก้ไข Code และทดสอบ
   - ทดสอบกับผู้เกี่ยวกับข้อง
 * R : ผู้ใช้สามารถแก่ไข SO ได้ตาม field ที่ร้องขอมา
