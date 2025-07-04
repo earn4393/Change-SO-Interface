@@ -1,0 +1,174 @@
+MIME-Version: 1.0
+X-Document-Type: Worksheet
+Content-Type: multipart/related; boundary="----=_NextPart_01C5084F.FEF9A7A0"
+
+------=_NextPart_01C5084F.FEF9A7A0
+Content-Location: file:///C:/Mappe1.htm
+Content-Transfer-Encoding: text/html
+Content-Type: text/html; charset="utf-8"
+
+<html xmlns="http://www.w3.org/TR/REC-html40" xmlns:alv="http://www.sap.com/ALV/2.5" xmlns:asx="http://www.sap.com/abapxml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta http-equiv="Content-Type" content="text/html;&#xA;        charset=utf-8"/><meta name="ProgId" content="Excel.Sheet"/><meta name="Generator" content="Microsoft Excel 9"/><link rel="File-List" href="./WbGui_XML_files/filelist.xml"/><link rel="Edit-Time-Data" href="./WbGui_XML_files/editdata.mso"/><link rel="OLE-Object-Data" href="./WbGui_XML_files/oledata.mso"/><!--[if gte mso 9]><xml><o:DocumentProperties/><o:OfficeDocumentSettings><o:DownloadComponents/><o:LocationOfComponents HRef="file:msowc.cab"/></o:OfficeDocumentSettings></xml><![endif]--><style><!--
+        table
+               {mso-displayed-decimal-separator:"\.";
+               mso-displayed-thousand-separator:"\.";}
+        @page
+               {margin:1.0in .75in 1.0in .75in;
+               mso-header-margin:.5in;
+               mso-footer-margin:.5in;}
+        tr
+               {mso-height-source:auto;}
+        col
+               {mso-width-source:auto;}
+        br
+               {mso-data-placement:same-cell;}
+        .style0
+               {mso-number-format:General;
+               text-align:general;
+               vertical-align:bottom;
+               white-space:nowrap;
+               mso-rotate:0;
+               mso-background-source:auto;
+               mso-pattern:auto;
+               color:windowtext;
+               font-size:10.0pt;
+               font-weight:400;
+               font-style:normal;
+               text-decoration:none;
+               font-family:Arial;
+               mso-generic-font-family:auto;
+               mso-font-charset:0;
+               border:none;
+               mso-protection:locked visible;
+               mso-style-name:Normal;
+               mso-style-id:0;}
+        td
+               {mso-style-parent:style0;
+               padding-top:1px;
+               padding-right:1px;
+               padding-left:1px;
+               mso-ignore:padding;
+               color:windowtext;
+               font-size:10.0pt;
+               font-weight:400;
+               font-style:normal;
+               text-decoration:none;
+               font-family:Arial;
+               mso-generic-font-family:auto;
+               mso-font-charset:0;
+               mso-number-format:General;
+               text-align:general;
+               vertical-align:bottom;
+               border:none;
+               mso-background-source:auto;
+               mso-pattern:auto;
+               mso-protection:locked visible;
+               white-space:nowrap;
+               mso-rotate:0;}
+        .x124
+                {mso-style-parent:style0;}
+        .x125
+                {mso-style-parent:style0;
+                mso-number-format:"Long Time";
+                text-align:right;}
+        .x126
+                {mso-style-parent:style0;
+                mso-number-format:"Short Date";
+                text-align:right;}
+        .x127
+                {mso-style-parent:style0;
+                mso-number-format:0;
+                text-align:right;}
+        .x128
+                {mso-style-parent:style0;
+                mso-number-format:"0\.0";
+                text-align:right;}
+        .x129
+                {mso-style-parent:style0;
+                mso-number-format:"0\.00";
+                text-align:right;}
+        .x130
+                {mso-style-parent:style0;
+                mso-number-format:"0\.000";
+                text-align:right;}
+        .x131
+                {mso-style-parent:style0;
+                mso-number-format:"0\.0000";
+                text-align:right;}
+        .x132
+                {mso-style-parent:style0;
+                mso-number-format:"0\.00000";
+                text-align:right;}
+        .x133
+                {mso-style-parent:style0;
+                mso-number-format:"0\.000000";
+                text-align:right;}
+        .x134
+                {mso-style-parent:style0;
+                mso-number-format:"0\.0000000";
+                text-align:right;}
+        .x135
+                {mso-style-parent:style0;
+                mso-number-format:"0\.00000000";
+                text-align:right;}
+        .x136
+                {mso-style-parent:style0;
+                mso-number-format:"0\.000000000";
+                text-align:right;}
+        .x137
+                {mso-style-parent:style0;
+                mso-number-format:"0";
+                text-align:right;}
+        .x138
+                {mso-style-parent:style0;}
+        .x139
+                {mso-style-parent:style0;}
+        .x140
+                {mso-style-parent:style0;
+                mso-number-format:"0%";
+                text-align:right;}
+        .x141
+                {mso-style-parent:style0;
+                mso-number-format:"0\.0%";
+                text-align:right;}
+        .x142
+                {mso-style-parent:style0;
+                mso-number-format:"0\.00%";
+                text-align:right;}
+        .x143
+                {mso-style-parent:style0;
+                mso-number-format:"0\.000%";
+                text-align:right;}
+        .x144
+                {mso-style-parent:style0;
+                mso-number-format:"0\.0000%";
+                text-align:right;}
+        .x145
+                {mso-style-parent:style0;
+                mso-number-format:"0\.00000%";
+                text-align:right;}
+        .x146
+                {mso-style-parent:style0;
+                mso-number-format:"0\.000000%";
+                text-align:right;}
+        .x147
+                {mso-style-parent:style0;
+                mso-number-format:"0\.0000000%";
+                text-align:right;}
+        .x148
+                {mso-style-parent:style0;
+                mso-number-format:"0\.00000000%";
+                text-align:right;}
+        .x149
+                {mso-style-parent:style0;
+                mso-number-format:"0\.000000000%";
+                text-align:right;}
+        .x150
+                {mso-style-parent:style0;
+                mso-number-format:"\[$-F400\]h\:mm\:ss\\ AM\/PM";}
+        
+        .xl51
+                {mso-style-parent:style0;
+                mso-number-format:"d\/m\/yy\\ h\:mm\;\@";}
+        --></style><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Sheet1</x:Name><x:WorksheetOptions><x:DefaultColWidth>10</x:DefaultColWidth><x:Print><x:ValidPrinterInfo/><x:PaperSizeIndex>9</x:PaperSizeIndex><x:HorizontalResolution>600</x:HorizontalResolution><x:VerticalResolution>0</x:VerticalResolution></x:Print><x:Selected/><x:Panes><x:Pane><x:Number>3</x:Number><x:ActiveRow>1</x:ActiveRow><x:ActiveCol>0</x:ActiveCol></x:Pane></x:Panes><x:ProtectContents>False</x:ProtectContents><x:ProtectObjects>False</x:ProtectObjects><x:ProtectScenarios>False</x:ProtectScenarios></x:WorksheetOptions></x:ExcelWorksheet><x:ExcelWorksheet><x:Name>Sheet2</x:Name><x:WorksheetOptions><x:ProtectContents>False</x:ProtectContents><x:ProtectObjects>False</x:ProtectObjects><x:ProtectScenarios>False</x:ProtectScenarios></x:WorksheetOptions></x:ExcelWorksheet><x:ExcelWorksheet><x:Name>Sheet3</x:Name><x:WorksheetOptions><x:ProtectContents>False</x:ProtectContents><x:ProtectObjects>False</x:ProtectObjects><x:ProtectScenarios>False</x:ProtectScenarios></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets><x:WindowHeight>12660</x:WindowHeight><x:WindowWidth>18060</x:WindowWidth><x:WindowTopX>240</x:WindowTopX><x:WindowTopY>60</x:WindowTopY><x:ProtectStructure>False</x:ProtectStructure><x:ProtectWindows>False</x:ProtectWindows></x:ExcelWorkbook></xml><![endif]--></head><body link="blue" vlink="purple"><table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;table-layout:fixed" x:str=""><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="&#xA;                              mso-pattern:auto none;border:.5pt solid windowtext;&#xA;                              background:#DDDDDD;&#xA;                            ">Sales Document</td><td class="x139" style="&#xA;                              mso-pattern:auto none;border:.5pt solid windowtext;&#xA;                              background:#DDDDDD;&#xA;                            ">Sales Document Item</td><td class="x139" style="&#xA;                              mso-pattern:auto none;border:.5pt solid windowtext;&#xA;                              background:#DDDDDD;&#xA;                            ">Sequential Number</td><td class="x139" style="&#xA;                              mso-pattern:auto none;border:.5pt solid windowtext;&#xA;                              background:#DDDDDD;&#xA;                            ">Group counter</td><td class="x139" style="&#xA;                              mso-pattern:auto none;border:.5pt solid windowtext;&#xA;                              background:#DDDDDD;&#xA;                            ">Text ID</td><td class="x139" style="&#xA;                              mso-pattern:auto none;border:.5pt solid windowtext;&#xA;                              background:#DDDDDD;&#xA;                            ">Catagory</td><td class="x139" style="&#xA;                              mso-pattern:auto none;border:.5pt solid windowtext;&#xA;                              background:#DDDDDD;&#xA;                            ">Table type name</td><td class="x139" style="&#xA;                              mso-pattern:auto none;border:.5pt solid windowtext;&#xA;                              background:#DDDDDD;&#xA;                            ">Fieldname</td><td class="x139" style="&#xA;                              mso-pattern:auto none;border:.5pt solid windowtext;&#xA;                              background:#DDDDDD;&#xA;                            ">Field description</td><td class="x139" style="&#xA;                              mso-pattern:auto none;border:.5pt solid windowtext;&#xA;                              background:#DDDDDD;&#xA;                            ">Data Type</td><td class="x139" style="&#xA;                              mso-pattern:auto none;border:.5pt solid windowtext;&#xA;                              background:#DDDDDD;&#xA;                            ">Table type name</td><td class="x139" style="&#xA;                              mso-pattern:auto none;border:.5pt solid windowtext;&#xA;                              background:#DDDDDD;&#xA;                            ">Value old</td><td class="x139" style="&#xA;                              mso-pattern:auto none;border:.5pt solid windowtext;&#xA;                              background:#DDDDDD;&#xA;                            ">Value new</td><td class="x139" style="&#xA;                              mso-pattern:auto none;border:.5pt solid windowtext;&#xA;                              background:#DDDDDD;&#xA;                            ">Ext.: Change Indicator Bank Data</td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_HEADER">SO_HEADER</td><td class="x139" style="" x:str="GW_ORDER_HEADER_IN">GW_ORDER_HEADER_IN</td><td class="x139" style="" x:str="CURRENCY">CURRENCY</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="CURR">CURR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_HEADER">SO_HEADER</td><td class="x139" style="" x:str="GW_ORDER_HEADER_IN">GW_ORDER_HEADER_IN</td><td class="x139" style="" x:str="PMNTTRMS">PMNTTRMS</td><td class="x139" style="" x:str="PAYMENT TERM">PAYMENT TERM</td><td class="x139" style="" x:str="CHAR">CHAR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_HEADER">SO_HEADER</td><td class="x139" style="" x:str="GW_ORDER_HEADER_IN">GW_ORDER_HEADER_IN</td><td class="x139" style="" x:str="PURCH_NO_C">PURCH_NO_C</td><td class="x139" style="" x:str="PO NO. (HEADER)">PO NO. (HEADER)</td><td class="x139" style="" x:str="CHAR">CHAR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_HEADER">SO_HEADER</td><td class="x139" style="" x:str="GW_ORDER_TEXT">GW_ORDER_TEXT</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="CHAR">CHAR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_HEADER">SO_HEADER</td><td class="x139" style="" x:str="GW_PARTNERCHANGES">GW_PARTNERCHANGES</td><td class="x139" style="" x:str="PARTN_ROLE">PARTN_ROLE</td><td class="x139" style="" x:str="ROLE">ROLE</td><td class="x139" style="" x:str="CHAR">CHAR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_HEADER">SO_HEADER</td><td class="x139" style="" x:str="GW_PARTNERCHANGES">GW_PARTNERCHANGES</td><td class="x139" style="" x:str="P_NUMB_NEW">P_NUMB_NEW</td><td class="x139" style="" x:str="PARTNER FUNCTION (HEADE)">PARTNER FUNCTION (HEADE)</td><td class="x139" style="" x:str="CHAR">CHAR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_ITEM">SO_ITEM</td><td class="x139" style="" x:str="GW_CONDITIONS_IN">GW_CONDITIONS_IN</td><td class="x139" style="" x:str="COND_P_UNT">COND_P_UNT</td><td class="x139" style="" x:str="PER PRICE">PER PRICE</td><td class="x139" style="" x:str="CURR">CURR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_ITEM">SO_ITEM</td><td class="x139" style="" x:str="GW_CONDITIONS_IN">GW_CONDITIONS_IN</td><td class="x139" style="" x:str="COND_TYPE">COND_TYPE</td><td class="x139" style="" x:str="CONDITION TYPE">CONDITION TYPE</td><td class="x139" style="" x:str="CHAR">CHAR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_ITEM">SO_ITEM</td><td class="x139" style="" x:str="GW_CONDITIONS_IN">GW_CONDITIONS_IN</td><td class="x139" style="" x:str="COND_VALUE">COND_VALUE</td><td class="x139" style="" x:str="PRICE">PRICE</td><td class="x139" style="" x:str="CURR">CURR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_ITEM">SO_ITEM</td><td class="x139" style="" x:str="GW_CONDITIONS_IN">GW_CONDITIONS_IN</td><td class="x139" style="" x:str="CURRENCY">CURRENCY</td><td class="x139" style="" x:str="CURRENCY">CURRENCY</td><td class="x139" style="" x:str="CUKY">CUKY</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_ITEM">SO_ITEM</td><td class="x139" style="" x:str="GW_ORDER_ITEM_IN">GW_ORDER_ITEM_IN</td><td class="x139" style="" x:str="CUST_MAT35">CUST_MAT35</td><td class="x139" style="" x:str="CUSTOMER PART">CUSTOMER PART</td><td class="x139" style="" x:str="CHAR">CHAR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_ITEM">SO_ITEM</td><td class="x139" style="" x:str="GW_ORDER_ITEM_IN">GW_ORDER_ITEM_IN</td><td class="x139" style="" x:str="MATERIAL">MATERIAL</td><td class="x139" style="" x:str="MATERIAL">MATERIAL</td><td class="x139" style="" x:str="CHAR">CHAR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_ITEM">SO_ITEM</td><td class="x139" style="" x:str="GW_ORDER_ITEM_IN">GW_ORDER_ITEM_IN</td><td class="x139" style="" x:str="PMNTTRMS">PMNTTRMS</td><td class="x139" style="" x:str="PAYMENT TERM">PAYMENT TERM</td><td class="x139" style="" x:str="CHAR">CHAR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_ITEM">SO_ITEM</td><td class="x139" style="" x:str="GW_ORDER_ITEM_IN">GW_ORDER_ITEM_IN</td><td class="x139" style="" x:str="PURCH_NO_C">PURCH_NO_C</td><td class="x139" style="" x:str="PO NO. (ITEM)">PO NO. (ITEM)</td><td class="x139" style="" x:str="CHAR">CHAR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_ITEM">SO_ITEM</td><td class="x139" style="" x:str="GW_ORDER_ITEM_IN">GW_ORDER_ITEM_IN</td><td class="x139" style="" x:str="REASON_REJ">REASON_REJ</td><td class="x139" style="" x:str="REJECT ITEM SO">REJECT ITEM SO</td><td class="x139" style="" x:str="CHAR">CHAR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_ITEM">SO_ITEM</td><td class="x139" style="" x:str="GW_ORDER_ITEM_IN">GW_ORDER_ITEM_IN</td><td class="x139" style="" x:str="ROUTE">ROUTE</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="CHAR">CHAR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_ITEM">SO_ITEM</td><td class="x139" style="" x:str="GW_ORDER_TEXT">GW_ORDER_TEXT</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="(ITEM/HEADER) TEXT">(ITEM/HEADER) TEXT</td><td class="x139" style="" x:str="CHAR">CHAR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_ITEM">SO_ITEM</td><td class="x139" style="" x:str="GW_PARTNERCHANGES">GW_PARTNERCHANGES</td><td class="x139" style="" x:str="PARTN_ROLE">PARTN_ROLE</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="CHAR">CHAR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_ITEM">SO_ITEM</td><td class="x139" style="" x:str="GW_PARTNERCHANGES">GW_PARTNERCHANGES</td><td class="x139" style="" x:str="P_NUMB_NEW">P_NUMB_NEW</td><td class="x139" style="" x:str="PARTNER FUNCTION (ITEM)">PARTNER FUNCTION (ITEM)</td><td class="x139" style="" x:str="CHAR">CHAR</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_ITEM">SO_ITEM</td><td class="x139" style="" x:str="GW_SCHEDULE_LINES">GW_SCHEDULE_LINES</td><td class="x139" style="" x:str="REQ_DATE">REQ_DATE</td><td class="x139" style="" x:str="DALIVERY DATE">DALIVERY DATE</td><td class="x139" style="" x:str="DATS">DATS</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr><tr xmlns="" height="17" style="height:12.75pt"><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str="0">0</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str="SO_ITEM">SO_ITEM</td><td class="x139" style="" x:str="GW_SCHEDULE_LINES">GW_SCHEDULE_LINES</td><td class="x139" style="" x:str="REQ_QTY">REQ_QTY</td><td class="x139" style="" x:str="QTY">QTY</td><td class="x139" style="" x:str="QUAN">QUAN</td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td><td class="x139" style="" x:str=""></td></tr></table></body></html>
+
+------=_NextPart_01C5084F.FEF9A7A0--
