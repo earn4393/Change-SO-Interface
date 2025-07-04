@@ -2,7 +2,7 @@
 change request
 - interface ที่ใช้แก้ไข SO
 * S : ด้วยข้อจำกัดด้าน license ผู้ใช้ต้องการแก้ไขข้อมูลใน SO เพิ่มโดยไม่ผ่าน SAP
-* T : แก้ไข SAP interface ที่ใช้แก้ไข SO
+* T : แก้ไข SAP interface ที่ใช้แก้ไข SO ตามที่ผู้ใช้ระบุ ex. delivery date , price , material 
 * A
   - review การทำงานของ code
   - ออกแบบและหา case ที่ใช้ในการเพิ่ม field ใน SO
